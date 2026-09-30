@@ -18,8 +18,8 @@ The budget tracker tracks income and expenses (duh)
 | :--- | | :--- | | :--- | 
 | `main_choice` (Integer 1-4) <br>
 | `sub_choice` (Integer 1-3) <br>
-`total` (Real / Integer: $\ge 0$) |
-1. Initionalize `total_income = 0`, ` total_expense = 0`. <br>2. Loop main menu display until user enter `4`. <br> 3. Validate that `main_choice` is between 1-4.<br> 4. if `1` (Log Income) or `2` (Log Expense):<br>&emsp;a.Display the respective submenu.<br>&emsp;b. Validate `sub_choice` between 1-3<br>&emsp;c. Prompt for duration; Loop until `total >= 0`.<br>&emsp;d. Map choice to activity name.<br>&emsp;e. Add `Total` to running total.<br>5. If `3` (Summary):<br>&emsp;a. Calculate `total_money = total_income - total_expense`.<br>&emsp;b. Determine goal achivement status ($)<br>&emsp;c. Display formatted summary report.<br>6. If `4` (Exit): Display the exit farewell and terminate. | Invalid input warning messages.<br> Success confirmation of logged income and expense and where it came from<br> Formatted Budget Summary<br>&emsp;- Total Income<br>&emsp;- Total Expense<br>&emsp;- total budget<br>&emsp;- Congrats on being profitable message <br>&emsp;- exit Farewell Message |
+`net_balance` (Real / Integer: $\ge 0$) |
+1. Initionalize `total_income = 0`, ` total_expense = 0`. <br>2. Loop main menu display until user enter `4`. <br> 3. Validate that `main_choice` is between 1-4.<br> 4. if `1` (Log Income) or `2` (Log Expense):<br>&emsp;a.Display the respective submenu.<br>&emsp;b. Validate `sub_choice` between 1-3<br>&emsp;c. Prompt for duration; Loop until `net_balance >= 0`.<br>&emsp;d. Map choice to activity name.<br>&emsp;e. Add `net_balance` to running total.<br>5. If `3` (Summary):<br>&emsp;a. Calculate `finacial_summary = total_income - total_expense`.<br>&emsp;b. Determine goal achivement status ($)<br>&emsp;c. Display formatted summary report.<br>6. If `4` (Exit): Display the exit farewell and terminate. | Invalid input warning messages.<br> Success confirmation of logged income and expense and where it came from<br> Formatted Budget Summary<br>&emsp;- Total Income<br>&emsp;- Total Expense<br>&emsp;- total budget<br>&emsp;- Congrats on being profitable message <br>&emsp;- exit Farewell Message |
 
 
 ---
@@ -36,7 +36,7 @@ MODULE main()
     DECLARE integer total_budget = 0
     DECLARE string main_choice = ""
     DECLARE String sub_choice = ""
-    DECLARE Real total = 0.0
+    DECLARE Real net_balance = 0.0
     DECLARE String finacial_summary = ""
 
     print("==========================================")
@@ -81,13 +81,13 @@ MODULE main()
         END IF
 
         DISPLAY "Enter total for the catagory."
-        INPUT total
-        WHILE total < 0
+        INPUT net_balance
+        WHILE net_balance < 0
             DISPLAY "Invalid. Please enter a value >= 0:"
-            INPUT total
+            INPUT net_balance
         END WHILE
 
-        total_income = total_income + total
+        total_income = total_income + net_balance
         DISPLAY "Successfully added ", total, " for the total income of the budget tracker."
 
         ELSE IF main_choice == 2 THEN
@@ -112,13 +112,13 @@ MODULE main()
         END IF
 
         DISPLAY "Enter total of the expenses."
-        INPUT total
-        WHILE total < 0
+        INPUT net_balance
+        WHILE net_balance < 0
             DISPLAY "Invalid. Please enter a value >= 0:"
-            INPUT total
+            INPUT net_balance
         END WHILE
 
-        total_expense = total_expense + total
+        total_expense = total_expense + net_balance
         DISPLAY "Successfully added ", total, " Expenses to the budget tracker."
 
        ELSE IF main_choice == 3 THEN
@@ -129,16 +129,16 @@ MODULE main()
             DISPLAY "Total Income:", total_income
             DISPLAY "Total Expenses:", total_expense
             DISPLAY "Total Summary:", finacial_summary
-            IF total_active >= 0 THEN
+            IF finacial_summary >= 0 THEN
                 DISPLAY "Status: Net Positive! Congratulations."
-            ELSE IF total_active > 0 THEN
+            ELSE IF finacial_summary > 0 THEN
                 DISPLAY "Status: You spent more than you gained... Keep an eye on it next time!"
             ELSE
                 DISPLAY "Status: literally nothing logged what did you expect?"
             END IF
             DISPLAY "=========================================="
         ELSE IF main_choice == 4
-            DISPLAY "Thank you for using the budget tracker, Keep an eye out on it!"
+            DISPLAY "Thank you for using the budget tracker!"
             BREAK
         END IF
     END WHILE
