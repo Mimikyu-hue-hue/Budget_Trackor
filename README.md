@@ -88,7 +88,7 @@ MODULE main()
         END WHILE
 
         total_income = total_income + net_balance
-        DISPLAY "Successfully added ", total, " for the total income of the budget tracker."
+        DISPLAY "Successfully added ", net_balance, " for the total income of the budget tracker. Your current total is ", total_income, "."
 
         ELSE IF main_choice == 2 THEN
             DISPLAY "---Total expense---"
@@ -119,7 +119,7 @@ MODULE main()
         END WHILE
 
         total_expense = total_expense + net_balance
-        DISPLAY "Successfully added ", total, " Expenses to the budget tracker."
+        DISPLAY "Successfully added ", total, " Expenses to the budget tracker. Your total expenses is ", total_expense, "."
 
        ELSE IF main_choice == 3 THEN
             finacial_summary = total_income - total_expense
